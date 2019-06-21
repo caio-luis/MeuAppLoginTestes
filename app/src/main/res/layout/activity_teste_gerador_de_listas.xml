@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:padding="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <EditText
+            android:id="@+id/teste_gerador_et_item"
+            android:hint="Digite seu item para a lista!"
+            android:maxLines="1"
+            android:maxLength="30"
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+    <Button
+            android:id="@+id/teste_gerador_btn_inserir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Inserir na lista"/>
+
+
+</LinearLayout>
+
