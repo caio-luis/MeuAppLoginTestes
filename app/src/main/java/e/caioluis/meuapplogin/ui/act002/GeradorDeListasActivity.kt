@@ -1,6 +1,7 @@
 package e.caioluis.meuapplogin.ui.act002
 
 import android.app.Activity
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -36,7 +37,10 @@ class GeradorDeListasActivity : AppCompatActivity() {
 
         context = this@GeradorDeListasActivity
 
-        adapterLista = AdapterLista(context, R.layout.celula_item_lista, minhalista)
+        adapterLista = AdapterLista(
+            context,
+            R.layout.celula_item_lista,
+            minhalista)
     }
 
     private fun initActions() {
@@ -54,22 +58,31 @@ class GeradorDeListasActivity : AppCompatActivity() {
             }
         }
 
-        gerador_lv_lista_itens.setOnItemClickListener { parent, view, position, id ->
-
-            adapterLista.fazerSelecao(position)
-
-            gerador_btn_exluir.isVisible = adapterLista.contarSelecionados() > 0
-        }
-
         gerador_btn_inserir_tela2.setOnClickListener {
 
             var mIntent = Intent(context, CadastrarItemListaActivityTeste::class.java)
 
             startActivityForResult(mIntent, PARAMETROINTENT)
         }
+
+        gerador_btn_exluir.setOnClickListener {
+
+            adapterLista.excluirSelecionados()
+
+            gerador_btn_exluir.isVisible = false
+
+        }
+
+        gerador_lv_lista_itens.setOnItemClickListener { parent, view, position, id ->
+
+            adapterLista.fazerSelecao(position)
+
+            gerador_btn_exluir.isVisible =
+                adapterLista.numeroDeItensSelecionados() > 0
+        }
     }
 
-    fun processarResposta(resultCode: Int, data: Intent?) {
+    private fun processarResposta(resultCode: Int, data: Intent?) {
 
         if (resultCode == Activity.RESULT_OK) {
 

@@ -1,5 +1,6 @@
 package e.caioluis.meuapplogin.adapter
 
+import android.content.ClipData
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,7 @@ class AdapterLista(
 
 ) : BaseAdapter() {
 
-    var selecionado = 0
+    var selecionados = 0
 
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -28,15 +29,15 @@ class AdapterLista(
 
         if (item[ItemDeListaHashMap.STATUS].equals("1")) {
             item[ItemDeListaHashMap.STATUS] = "0"
-            selecionado--
+            selecionados--
         } else {
             item[ItemDeListaHashMap.STATUS] = "1"
-            selecionado++
+            selecionados++
         }
         notifyDataSetChanged()
     }
 
-    fun contarSelecionados(): Int {
+    fun numeroDeItensSelecionados(): Int {
         var contador = 0
 
         for (i in 0 until dados.size) {
@@ -47,15 +48,27 @@ class AdapterLista(
         return contador
     }
 
-    fun excluirItem(){
+    fun posicaoDosSelecionados(): ArrayList<ItemDeListaHashMap> {
+
+        var listaselecionados = ArrayList<ItemDeListaHashMap>()
 
         for (i in 0 until dados.size) {
             if (dados[i][ItemDeListaHashMap.STATUS].equals("1")) {
-
+                listaselecionados.add(dados[i])
             }
         }
-
+        return listaselecionados
     }
+
+    fun excluirSelecionados(){
+
+        var selecoes = posicaoDosSelecionados()
+
+        dados.removeAll(selecoes)
+
+        notifyDataSetChanged()
+    }
+
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
@@ -69,7 +82,7 @@ class AdapterLista(
         var item = dados[position]
 
 
-        tv_item?.text = "${item[ItemDeListaHashMap.IDITEM]} - ${item[ItemDeListaHashMap.CONTEUDOITEM]}"
+        tv_item?.text = "${item[ItemDeListaHashMap.CONTEUDOITEM]}"
 
         if (item[ItemDeListaHashMap.STATUS].equals("1")) {
             ll_fundo?.setBackgroundColor(context.getColor(R.color.selected_on))
@@ -91,4 +104,6 @@ class AdapterLista(
     override fun getCount(): Int {
         return dados.size
     }
+
+
 }
