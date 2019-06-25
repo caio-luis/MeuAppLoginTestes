@@ -40,7 +40,8 @@ class GeradorDeListasActivity : AppCompatActivity() {
         adapterLista = AdapterLista(
             context,
             R.layout.celula_item_lista,
-            minhalista)
+            minhalista
+        )
     }
 
     private fun initActions() {
@@ -91,7 +92,7 @@ class GeradorDeListasActivity : AppCompatActivity() {
             gerarLista(minhalista, rConteudo!!)
             formarLista()
 
-        }else{
+        } else {
             exibirMensagem(context, "Cancelado")
         }
     }
