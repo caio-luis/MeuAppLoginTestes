@@ -68,15 +68,12 @@ class AdapterLista(
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 
-        var mView: View?
-
-        mView = mInflater.inflate(resource, parent, false)
+        var mView: View? = mInflater.inflate(resource, parent, false)
 
         var ll_fundo = mView?.findViewById<LinearLayout>(R.id.ll_item)
         var tv_item = mView?.findViewById<TextView>(R.id.celula_tv_item)
 
         var item = dados[position]
-
 
         tv_item?.text = "${item[ItensHashMap.CONTEUDOITEM]}"
 
