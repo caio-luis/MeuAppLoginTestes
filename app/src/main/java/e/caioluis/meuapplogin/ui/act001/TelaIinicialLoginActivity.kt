@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import e.caioluis.meuapplogin.R
 import e.caioluis.meuapplogin.ui.act002.GeradorDeListasActivity
-import kotlinx.android.synthetic.main.activity_login_telainicial.*
 
 class TelaIinicialLoginActivity : AppCompatActivity() {
 
@@ -27,13 +26,10 @@ class TelaIinicialLoginActivity : AppCompatActivity() {
 
     private fun initActions() {
 
-        login_btn_entrar.setOnClickListener {
+        var mIntent = Intent(context, GeradorDeListasActivity::class.java)
 
-            var mIntent = Intent(context, GeradorDeListasActivity::class.java)
+        startActivity(mIntent)
 
-            startActivity(mIntent)
-
-            finish()
-        }
+        finish()
     }
 }

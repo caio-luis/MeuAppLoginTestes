@@ -1,17 +1,17 @@
 package e.caioluis.meuapplogin.ui.act002
 
 import android.app.Activity
-import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import e.caioluis.meuapplogin.R
 import e.caioluis.meuapplogin.adapter.AdapterLista
-import e.caioluis.meuapplogin.model.ItemDeListaHashMap
-import e.caioluis.meuapplogin.ui.act001.TelaIinicialLoginActivity
-import e.caioluis.meuapplogin.ui.act003.CadastrarItemListaActivityTeste
+import e.caioluis.meuapplogin.model.ItensHashMap
+import e.caioluis.meuapplogin.ui.act003.Testes
 import e.caioluis.meuapplogin.util.apagarEditText
 import e.caioluis.meuapplogin.util.exibirMensagem
 import e.caioluis.meuapplogin.util.validarEditText
@@ -23,7 +23,7 @@ class GeradorDeListasActivity : AppCompatActivity() {
     private lateinit var context: Context
     private lateinit var adapterLista: AdapterLista
 
-    private var minhalista: ArrayList<ItemDeListaHashMap> = ArrayList()
+    private var minhalista: ArrayList<ItensHashMap> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,20 +50,13 @@ class GeradorDeListasActivity : AppCompatActivity() {
 
             if (validarEditText(gerador_et_item)) {
 
-                gerarLista(minhalista)
-                formarLista()
+                incrementarLista(minhalista)
+                exibirLista()
                 apagarEditText(gerador_et_item)
 
             } else {
-                exibirMensagem(context, "O campo está vazio!")
+                exibirMensagem(context, "Erro: O campo não pode estar vazio")
             }
-        }
-
-        gerador_btn_inserir_tela2.setOnClickListener {
-
-            var mIntent = Intent(context, CadastrarItemListaActivityTeste::class.java)
-
-            startActivityForResult(mIntent, PARAMETROINTENT)
         }
 
         gerador_btn_exluir.setOnClickListener {
@@ -83,65 +76,72 @@ class GeradorDeListasActivity : AppCompatActivity() {
         }
     }
 
-    private fun processarResposta(resultCode: Int, data: Intent?) {
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
-        if (resultCode == Activity.RESULT_OK) {
+        var mItent = Intent(context, Testes::class.java)
 
-            var rConteudo = data?.getStringExtra(ItemDeListaHashMap.CONTEUDOITEM)
+        startActivityForResult(mItent, PARAMETROINTENT)
 
-            gerarLista(minhalista, rConteudo!!)
-            formarLista()
+        return true
+    }
 
-        } else {
-            exibirMensagem(context, "Cancelado")
-        }
+    private fun exibirLista() {
+
+        gerador_lv_lista_itens.adapter = adapterLista
+    }
+
+    private fun incrementarLista(minhalista: ArrayList<ItensHashMap>): ArrayList<ItensHashMap> {
+
+        var item = gerador_et_item.text.toString()
+        var hmAuxiliar = ItensHashMap()
+
+        hmAuxiliar[ItensHashMap.CONTEUDOITEM] = item
+        hmAuxiliar[ItensHashMap.IDITEM] = ((minhalista.size) + 1).toString()
+
+        minhalista.add(hmAuxiliar)
+
+        return minhalista
+    }
+
+    private fun incrementarLista(minhalista: ArrayList<ItensHashMap>, conteudo: String): ArrayList<ItensHashMap> {
+
+        var hmAuxiliar = ItensHashMap()
+
+        hmAuxiliar[ItensHashMap.CONTEUDOITEM] = conteudo
+        hmAuxiliar[ItensHashMap.IDITEM] = ((minhalista.size) + 1).toString()
+
+        minhalista.add(hmAuxiliar)
+
+        return minhalista
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         processarResposta(resultCode, data)
     }
 
-    private fun formarLista() {
+    private fun processarResposta(resultCode: Int, data: Intent?) {
 
-        gerador_lv_lista_itens.adapter = adapterLista
-    }
+        if (resultCode == Activity.RESULT_OK) {
 
-    private fun gerarLista(minhalista: ArrayList<ItemDeListaHashMap>): ArrayList<ItemDeListaHashMap> {
+            var rConteudo = data?.getStringExtra(ItensHashMap.CONTEUDOITEM)
 
-        var item = gerador_et_item.text.toString()
-        var hmAuxiliar = ItemDeListaHashMap()
+            incrementarLista(minhalista, rConteudo!!)
+            exibirLista()
 
-        hmAuxiliar[ItemDeListaHashMap.CONTEUDOITEM] = item
-        hmAuxiliar[ItemDeListaHashMap.IDITEM] = ((minhalista.size) + 1).toString()
-
-        minhalista.add(hmAuxiliar)
-
-        return minhalista
-    }
-
-    private fun gerarLista(minhalista: ArrayList<ItemDeListaHashMap>, conteudo: String): ArrayList<ItemDeListaHashMap> {
-
-        var hmAuxiliar = ItemDeListaHashMap()
-
-        hmAuxiliar[ItemDeListaHashMap.CONTEUDOITEM] = conteudo
-        hmAuxiliar[ItemDeListaHashMap.IDITEM] = ((minhalista.size) + 1).toString()
-
-        minhalista.add(hmAuxiliar)
-
-        return minhalista
-    }
-
-    override fun onBackPressed() {
-
-        var mIntent = Intent(context, TelaIinicialLoginActivity::class.java)
-
-        startActivity(mIntent)
-
-        finish()
+        } else {
+            exibirMensagem(context, "Cancelado")
+        }
     }
 
     companion object {
         const val PARAMETROINTENT = 10
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.menu_main, menu)
+
+        return true
     }
 }
 

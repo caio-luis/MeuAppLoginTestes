@@ -53,12 +53,6 @@
             android:layout_height="300dp"
             android:id="@+id/gerador_lv_lista_itens"/>
 
-    <Button
-            android:id="@+id/gerador_btn_inserir_tela2"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Inserir por outra tela"/>
 </LinearLayout>
 
 
