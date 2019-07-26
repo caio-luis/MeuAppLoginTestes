@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_maker_title">Create your list!</string>
+    <string name="list_maker_et_hint">Type an item for the list</string>
+    <string name="list_maker_insert_btn_label">Insert</string>
+    <string name="list_maker_delete_btn_label">Delete</string>
+    <string name="error_message_empty_field">Error: Empty field!</string>
+    <string name="error_message_canceled">Canceled</string>
+    <string name="app_name">My Login App</string>
+</resources>
