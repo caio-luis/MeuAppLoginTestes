@@ -5,15 +5,15 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import e.caioluis.meuapplogin.R
-import e.caioluis.meuapplogin.ui.act002.GeradorDeListasActivity
+import e.caioluis.meuapplogin.ui.act002.ListMakerActivity
 
-class TelaIinicialLoginActivity : AppCompatActivity() {
+class LoginMainActivity : AppCompatActivity() {
 
     private lateinit var context: Context
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login_telainicial)
+        setContentView(R.layout.activity_main_login)
 
         initVars()
         initActions()
@@ -21,12 +21,12 @@ class TelaIinicialLoginActivity : AppCompatActivity() {
     }
 
     private fun initVars() {
-        context = this@TelaIinicialLoginActivity
+        context = this@LoginMainActivity
     }
 
     private fun initActions() {
 
-        var mIntent = Intent(context, GeradorDeListasActivity::class.java)
+        var mIntent = Intent(context, ListMakerActivity::class.java)
 
         startActivity(mIntent)
 

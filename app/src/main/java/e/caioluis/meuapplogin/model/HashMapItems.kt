@@ -1,6 +1,6 @@
 package e.caioluis.meuapplogin.model
 
-class ItensHashMap(
+class HashMapItems(
 
     var iditem: Long = 1L,
     var conteudo: String = ""
@@ -8,8 +8,8 @@ class ItensHashMap(
 ) : HashMap<String, String>() {
 
     companion object {
-        const val IDITEM = "id"
-        const val CONTEUDOITEM = "conteudoitem"
+        const val ITEM_ID = "id"
+        const val ITEMCONTENT = "conteudoitem"
         const val STATUS = "status"
     }
 }

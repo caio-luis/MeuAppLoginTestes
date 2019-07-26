@@ -8,55 +8,55 @@ import android.widget.BaseAdapter
 import android.widget.LinearLayout
 import android.widget.TextView
 import e.caioluis.meuapplogin.R
-import e.caioluis.meuapplogin.model.ItensHashMap
+import e.caioluis.meuapplogin.model.HashMapItems
 
-class AdapterLista(
+class MyListAdapter(
 
     private val context: Context,
     private var resource: Int,
-    private var dados: ArrayList<ItensHashMap>
+    private var dados: ArrayList<HashMapItems>
 
 ) : BaseAdapter() {
 
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
 
-    fun fazerSelecao(position: Int) {
+    fun doSelection(position: Int) {
 
         val item = dados[position]
 
-        if (item[ItensHashMap.STATUS].equals("1")) {
-            item[ItensHashMap.STATUS] = "0"
+        if (item[HashMapItems.STATUS].equals("1")) {
+            item[HashMapItems.STATUS] = "0"
 
         } else {
-            item[ItensHashMap.STATUS] = "1"
+            item[HashMapItems.STATUS] = "1"
         }
         notifyDataSetChanged()
     }
 
-    fun numeroDeItensSelecionados(): Int {
+    fun selectedItemsNumber(): Int {
         var contador = 0
 
         for (i in 0 until dados.size) {
-            if (dados[i][ItensHashMap.STATUS].equals("1")) {
+            if (dados[i][HashMapItems.STATUS].equals("1")) {
                 contador++
             }
         }
         return contador
     }
 
-    fun posicaoDosSelecionados(): ArrayList<ItensHashMap> {
+    fun posicaoDosSelecionados(): ArrayList<HashMapItems> {
 
-        var listaselecionados = ArrayList<ItensHashMap>()
+        var listaselecionados = ArrayList<HashMapItems>()
 
         for (i in 0 until dados.size) {
-            if (dados[i][ItensHashMap.STATUS].equals("1")) {
+            if (dados[i][HashMapItems.STATUS].equals("1")) {
                 listaselecionados.add(dados[i])
             }
         }
         return listaselecionados
     }
 
-    fun excluirSelecionados(){
+    fun deleteSelectedItems(){
 
         var selecoes = posicaoDosSelecionados()
 
@@ -75,9 +75,9 @@ class AdapterLista(
 
         var item = dados[position]
 
-        tv_item?.text = "${item[ItensHashMap.CONTEUDOITEM]}"
+        tv_item?.text = "${item[HashMapItems.ITEMCONTENT]}"
 
-        if (item[ItensHashMap.STATUS].equals("1")) {
+        if (item[HashMapItems.STATUS].equals("1")) {
             ll_fundo?.setBackgroundColor(context.getColor(R.color.selected_on))
         } else {
             ll_fundo?.setBackgroundColor(context.getColor(R.color.selected_off))
@@ -91,7 +91,7 @@ class AdapterLista(
     }
 
     override fun getItemId(position: Int): Long {
-        return dados[position][ItensHashMap.IDITEM]?.toLong() ?: 0L
+        return dados[position][HashMapItems.ITEM_ID]?.toLong() ?: 0L
     }
 
     override fun getCount(): Int {

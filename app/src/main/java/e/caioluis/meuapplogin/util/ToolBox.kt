@@ -4,11 +4,11 @@ import android.content.Context
 import android.widget.EditText
 import android.widget.Toast
 
-fun apagarEditText(editText: EditText) {
+fun eraseEditText(editText: EditText) {
     editText.setText("")
 }
 
-fun exibirMensagem(context: Context, mensagem: String) {
+fun showMessage(context: Context, mensagem: Int) {
     Toast.makeText(
         context,
         mensagem,
@@ -16,7 +16,7 @@ fun exibirMensagem(context: Context, mensagem: String) {
     ).show()
 }
 
-fun validarEditText(editText: EditText): Boolean {
+fun validateEditText(editText: EditText): Boolean {
 
     var texto = editText.text.toString()
 

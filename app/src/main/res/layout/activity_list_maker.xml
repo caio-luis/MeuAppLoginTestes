@@ -10,18 +10,18 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Gere sua lista!"
+            android:text="@string/list_maker_title"
             android:gravity="center_horizontal"
             android:textSize="20sp"/>
 
     <EditText
-            android:hint="Digite seu item para a lista!"
+            android:hint="@string/list_maker_et_hint"
             android:maxLines="1"
             android:maxLength="30"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/gerador_et_item"/>
+            android:id="@+id/list_maker_item_et"/>
 
     <LinearLayout
             android:orientation="horizontal"
@@ -29,20 +29,20 @@
             android:layout_height="wrap_content">
 
         <Button
-                android:id="@+id/gerador_btn_inserir"
+                android:id="@+id/list_maker_insert_btn"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Inserir"/>
+                android:text="@string/list_maker_insert_btn_label"/>
         <Button
                 android:visibility="gone"
-                android:id="@+id/gerador_btn_exluir"
+                android:id="@+id/list_maker_delete_btn"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Excluir"/>
+                android:text="@string/list_maker_delete_btn_label"/>
 
     </LinearLayout>
 
@@ -51,7 +51,7 @@
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:id="@+id/gerador_lv_lista_itens"/>
+            android:id="@+id/list_maker_lv"/>
 
 </LinearLayout>
 

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Meu App Login</string>
+    <string name="list_maker_title">Gere sua lista!</string>
+    <string name="list_maker_et_hint">Digite seu item para a lista!</string>
+    <string name="list_maker_insert_btn_label">Inserir</string>
+    <string name="list_maker_delete_btn_label">Excluir</string>
+    <string name="error_message_empty_field">Erro: O campo não pode estar vazio</string>
+    <string name="error_message_canceled">Cancelado</string>
 </resources>
