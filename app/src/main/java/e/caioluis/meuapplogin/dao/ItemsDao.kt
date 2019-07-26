@@ -6,8 +6,8 @@ import e.caioluis.meuapplogin.database.Dao
 class ItemsDao (context: Context) : Dao(context) {
 
     companion object {
-        const val TABELA = "tabela"
+        const val TABLE = "table"
         const val ID = "id"
-        const val CONTEUDO = "conteudo"
+        const val CONTENT = "content"
     }
 }

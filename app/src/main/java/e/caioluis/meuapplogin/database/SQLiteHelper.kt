@@ -22,15 +22,15 @@ class SQLiteHelper(
 
             sb.append(
                 "CREATE TABLE IF NOT EXISTS [itens] (\n" +
-                        "  [iditem] INT NOT NULL, \n" +
-                        "  [conteudo] TEXT NOT NULL, \n" +
-                        "  CONSTRAINT [] PRIMARY KEY ([iditem]));"
+                        "  [itemid] INT NOT NULL, \n" +
+                        "  [content] TEXT NOT NULL, \n" +
+                        "  CONSTRAINT [] PRIMARY KEY ([itemid]));"
             )
 
-            val comandos = sb.toString().split(";")
+            val commands = sb.toString().split(";")
 
-            for (i in 0 until comandos.size) {
-                db?.execSQL(comandos[i].toLowerCase())
+            for (i in 0 until commands.size) {
+                db?.execSQL(commands[i].toLowerCase())
             }
 
         } catch (ex: Exception) {
@@ -44,10 +44,10 @@ class SQLiteHelper(
 
             sb.append("DROP TABLE IF EXISTS [itens];")
 
-            val comandos = sb.toString().split(";")
+            val commands = sb.toString().split(";")
 
-            for (i in 0 until comandos.size) {
-                db?.execSQL(comandos[i].toLowerCase())
+            for (i in 0 until commands.size) {
+                db?.execSQL(commands[i].toLowerCase())
             }
 
         } catch (ex: Exception) {

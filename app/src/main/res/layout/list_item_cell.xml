@@ -7,7 +7,7 @@
 
     <TextView
             android:gravity="center_vertical"
-            android:id="@+id/celula_tv_item"
+            android:id="@+id/item_tv_cell"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:textSize="15sp"

@@ -14,7 +14,7 @@ class MyListAdapter(
 
     private val context: Context,
     private var resource: Int,
-    private var dados: ArrayList<HashMapItems>
+    private var data: ArrayList<HashMapItems>
 
 ) : BaseAdapter() {
 
@@ -22,7 +22,7 @@ class MyListAdapter(
 
     fun doSelection(position: Int) {
 
-        val item = dados[position]
+        val item = data[position]
 
         if (item[HashMapItems.STATUS].equals("1")) {
             item[HashMapItems.STATUS] = "0"
@@ -34,33 +34,33 @@ class MyListAdapter(
     }
 
     fun selectedItemsNumber(): Int {
-        var contador = 0
+        var counter = 0
 
-        for (i in 0 until dados.size) {
-            if (dados[i][HashMapItems.STATUS].equals("1")) {
-                contador++
+        for (i in 0 until data.size) {
+            if (data[i][HashMapItems.STATUS].equals("1")) {
+                counter++
             }
         }
-        return contador
+        return counter
     }
 
-    fun posicaoDosSelecionados(): ArrayList<HashMapItems> {
+    fun selectedItemsPosition(): ArrayList<HashMapItems> {
 
-        var listaselecionados = ArrayList<HashMapItems>()
+        var selectedlist = ArrayList<HashMapItems>()
 
-        for (i in 0 until dados.size) {
-            if (dados[i][HashMapItems.STATUS].equals("1")) {
-                listaselecionados.add(dados[i])
+        for (i in 0 until data.size) {
+            if (data[i][HashMapItems.STATUS].equals("1")) {
+                selectedlist.add(data[i])
             }
         }
-        return listaselecionados
+        return selectedlist
     }
 
     fun deleteSelectedItems(){
 
-        var selecoes = posicaoDosSelecionados()
+        var selecoes = selectedItemsPosition()
 
-        dados.removeAll(selecoes)
+        data.removeAll(selecoes)
 
         notifyDataSetChanged()
     }
@@ -70,32 +70,32 @@ class MyListAdapter(
 
         var mView: View? = mInflater.inflate(resource, parent, false)
 
-        var ll_fundo = mView?.findViewById<LinearLayout>(R.id.ll_item)
-        var tv_item = mView?.findViewById<TextView>(R.id.celula_tv_item)
+        var ll_background = mView?.findViewById<LinearLayout>(R.id.ll_item)
+        var tv_item = mView?.findViewById<TextView>(R.id.item_tv_cell)
 
-        var item = dados[position]
+        var item = data[position]
 
         tv_item?.text = "${item[HashMapItems.ITEMCONTENT]}"
 
         if (item[HashMapItems.STATUS].equals("1")) {
-            ll_fundo?.setBackgroundColor(context.getColor(R.color.selected_on))
+            ll_background?.setBackgroundColor(context.getColor(R.color.selected_on))
         } else {
-            ll_fundo?.setBackgroundColor(context.getColor(R.color.selected_off))
+            ll_background?.setBackgroundColor(context.getColor(R.color.selected_off))
         }
 
         return mView!!
     }
 
     override fun getItem(position: Int): Any {
-        return dados[position]
+        return data[position]
     }
 
     override fun getItemId(position: Int): Long {
-        return dados[position][HashMapItems.ITEM_ID]?.toLong() ?: 0L
+        return data[position][HashMapItems.ITEM_ID]?.toLong() ?: 0L
     }
 
     override fun getCount(): Int {
-        return dados.size
+        return data.size
     }
 
 

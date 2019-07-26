@@ -64,7 +64,6 @@ class ListMakerActivity : AppCompatActivity() {
             myListAdapter.deleteSelectedItems()
 
             list_maker_delete_btn.isVisible = false
-
         }
 
         list_maker_lv.setOnItemClickListener { parent, view, position, id ->
@@ -78,9 +77,9 @@ class ListMakerActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
-        val mItent = Intent(context, Tests::class.java)
+        val mIntent = Intent(context, Tests::class.java)
 
-        startActivityForResult(mItent, INTENTPARAMETER)
+        startActivityForResult(mIntent, INTENTPARAMETER)
 
         return true
     }

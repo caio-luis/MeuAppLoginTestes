@@ -9,18 +9,18 @@ open class Dao (
 
     protected var db : SQLiteDatabase? = null
 
-    fun abrirBanco(){
+    fun openDataBase(){
 
         var helper = SQLiteHelper(
             context,
-            Constantes.BANCO,
+            Constants.DATABASE,
             null,
-            Constantes.VERSAO
+            Constants.VERSION
         )
         this.db = helper.writableDatabase
     }
 
-    fun fecharBanco(){
+    fun closeDataBase(){
         if (db != null)
             db?.close()
     }
