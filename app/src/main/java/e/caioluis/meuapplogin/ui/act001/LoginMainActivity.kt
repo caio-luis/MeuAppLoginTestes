@@ -26,7 +26,7 @@ class LoginMainActivity : AppCompatActivity() {
 
     private fun initActions() {
 
-        var mIntent = Intent(context, ListMakerActivity::class.java)
+        val mIntent = Intent(context, ListMakerActivity::class.java)
 
         startActivity(mIntent)
 

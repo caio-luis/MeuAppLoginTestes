@@ -9,21 +9,20 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import e.caioluis.meuapplogin.R
-import e.caioluis.meuapplogin.adapter.MyListAdapter
+import e.caioluis.meuapplogin.adapter.ListAdapter
 import e.caioluis.meuapplogin.model.HashMapItems
 import e.caioluis.meuapplogin.ui.act003.Tests
-import e.caioluis.meuapplogin.util.eraseEditText
+import e.caioluis.meuapplogin.util.cleanEditText
 import e.caioluis.meuapplogin.util.showMessage
 import e.caioluis.meuapplogin.util.validateEditText
 import kotlinx.android.synthetic.main.activity_list_maker.*
-import android.widget.SimpleAdapter as SimpleAdapter
 
 class ListMakerActivity : AppCompatActivity() {
 
     private lateinit var context: Context
-    private lateinit var myListAdapter: MyListAdapter
+    private lateinit var listAdapter: ListAdapter
 
-    private var mylist: ArrayList<HashMapItems> = ArrayList()
+    private var myList: ArrayList<HashMapItems> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,41 +36,42 @@ class ListMakerActivity : AppCompatActivity() {
 
         context = this@ListMakerActivity
 
-        myListAdapter = MyListAdapter(
+        listAdapter = ListAdapter(
             context,
             R.layout.list_item_cell,
-            mylist
+            myList
         )
+        list_maker_lv.adapter = listAdapter
     }
 
     private fun initActions() {
 
         list_maker_insert_btn.setOnClickListener {
 
-            if (validateEditText(list_maker_item_et)) {
+            if (!validateEditText(list_maker_item_et)) {
 
-                addToList(mylist)
-                showList()
-                eraseEditText(list_maker_item_et)
-
-            } else {
                 showMessage(context, R.string.error_message_empty_field)
+
+                return@setOnClickListener
             }
+
+            addToList(myList)
+            cleanEditText(list_maker_item_et)
         }
 
         list_maker_delete_btn.setOnClickListener {
 
-            myListAdapter.deleteSelectedItems()
+            listAdapter.deleteSelectedItems()
 
             list_maker_delete_btn.isVisible = false
         }
 
         list_maker_lv.setOnItemClickListener { parent, view, position, id ->
 
-            myListAdapter.doSelection(position)
+            listAdapter.doSelection(position)
 
             list_maker_delete_btn.isVisible =
-                myListAdapter.selectedItemsNumber() > 0
+                listAdapter.selectedItemsNumber() > 0
         }
     }
 
@@ -84,25 +84,21 @@ class ListMakerActivity : AppCompatActivity() {
         return true
     }
 
-    private fun showList() {
-
-        list_maker_lv.adapter = myListAdapter
-    }
-
-    private fun addToList(minhalista: ArrayList<HashMapItems>): ArrayList<HashMapItems> {
+    private fun addToList(list: ArrayList<HashMapItems>) {
 
         val item = list_maker_item_et.text.toString()
-        val hmAuxiliar = HashMapItems()
 
-        hmAuxiliar[HashMapItems.ITEMCONTENT] = item
-        hmAuxiliar[HashMapItems.ITEM_ID] = ((minhalista.size) + 1).toString()
+        val hmAux = HashMapItems()
 
-        minhalista.add(hmAuxiliar)
+        hmAux[HashMapItems.ITEMCONTENT] = item
+        hmAux[HashMapItems.ITEM_ID] = ((list.size) + 1).toString()
 
-        return minhalista
+        list.add(hmAux)
+
+        listAdapter.notifyDataSetChanged()
     }
 
-    private fun addToList(list: ArrayList<HashMapItems>, content: String): ArrayList<HashMapItems> {
+    private fun addToList(list: ArrayList<HashMapItems>, content: String) {
 
         val hmHelper = HashMapItems()
 
@@ -111,7 +107,7 @@ class ListMakerActivity : AppCompatActivity() {
 
         list.add(hmHelper)
 
-        return list
+        listAdapter.notifyDataSetChanged()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -124,8 +120,7 @@ class ListMakerActivity : AppCompatActivity() {
 
             val rContent = data?.getStringExtra(HashMapItems.ITEMCONTENT)
 
-            addToList(mylist, rContent!!)
-            showList()
+            addToList(myList, rContent!!)
 
         } else {
             showMessage(context, R.string.error_message_canceled)

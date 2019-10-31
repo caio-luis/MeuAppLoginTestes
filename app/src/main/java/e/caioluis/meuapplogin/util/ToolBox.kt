@@ -4,7 +4,7 @@ import android.content.Context
 import android.widget.EditText
 import android.widget.Toast
 
-fun eraseEditText(editText: EditText) {
+fun cleanEditText(editText: EditText) {
     editText.setText("")
 }
 

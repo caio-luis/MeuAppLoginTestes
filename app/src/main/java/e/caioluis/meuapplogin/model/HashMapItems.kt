@@ -1,11 +1,6 @@
 package e.caioluis.meuapplogin.model
 
-class HashMapItems(
-
-    var itemid: Long = 1L,
-    var content: String = ""
-
-) : HashMap<String, String>() {
+class HashMapItems : HashMap<String, String>() {
 
     companion object {
         const val ITEM_ID = "id"
